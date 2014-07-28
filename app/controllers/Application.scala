@@ -14,10 +14,12 @@ object Application extends Controller {
 
     Async {
       superImportantUserInfo.map { response =>
-        ("Yeah! We've got your info.") // This happens when the remote service returns 200.
+        "Yeah! We've got your info." // This happens when the remote service returns 200.
       } recover {
-        case error: UserInfoResponseException => ("We couldn't find your info. Oh well.") // This is where our bug occurs.
-        case _ => ("Something actually went wrong.") // This represents an actual unexpected Exception.
+        case error: UserInfoResponseException =>
+          "We couldn't find your info. Oh well." // This is where our bug occurs.
+        case _ =>
+          "Something actually went wrong." // This represents an actual unexpected Exception.
       } map { case (message) =>
         Ok(message)
       }
